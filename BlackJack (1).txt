@@ -1,0 +1,4 @@
+1./Added the functionality for Stand
+2./Fixed the hidden dependencies, removed input scanner from view package.
+3./Added strategy pattern "Soft 17" to IHitStrategy.
+4./Minor tweeks on bugs like pressing hit wont display lose/win.
