@@ -1,16 +1,28 @@
 package BlackJack.model;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class Game {
 
   private Dealer m_dealer;
   private Player m_player;
+  
+  private ArrayList<IObserver> m_subscribers;
 
   public Game()
   {
     m_dealer = new Dealer(new BlackJack.model.rules.RulesFactory());
     m_player = new Player();
+    
+    m_subscribers = new ArrayList<IObserver>();
   }
     
+  
+  public void addSubscriber(IObserver a_sub){
+	  m_subscribers.add(a_sub);
+	  
+  }
     
   public boolean IsGameOver()
   {
@@ -27,14 +39,37 @@ public class Game {
     return m_dealer.NewGame(m_player);
   }
   
+  private void helpSendEvent(Player player){
+	  
+	  Card card = null;
+		  
+		  Iterator<Card> hand = player.GetHand().iterator();
+			 while(hand.hasNext()) {
+				card = hand.next();
+			 }
+		  
+			 m_subscribers.get(0).dealtCard(card.GetValue());
+
+  }
+  
   public boolean Hit()
   {
-    return m_dealer.Hit(m_player);
+	  if(m_dealer.Hit(m_player)){
+		 helpSendEvent(m_player);
+		  return true;
+	  }
+	  
+    return false;
   }
   
   public boolean Stand()
   {  
-    return m_dealer.Stand();
+	  if(m_dealer.Stand()){
+			 helpSendEvent(m_dealer);
+			  return true;
+		  }
+		  
+	return false;
   }
   
   public Iterable<Card> GetDealerHand()

@@ -1,8 +1,14 @@
 package BlackJack.controller;
 
-public class PlayGame {
+import BlackJack.model.Card.Value;
+import BlackJack.model.IObserver;
+
+public class PlayGame implements IObserver{
 
 	public boolean Play(BlackJack.model.Game a_game, BlackJack.view.IView a_view) {
+		
+		
+		a_game.addSubscriber(this);
 		
 		a_view.DisplayWelcomeMessage();
 	
@@ -37,5 +43,17 @@ public class PlayGame {
 			System.out.println("" + e);
 			return 0;
 		}
+	}
+
+	@Override
+	public void dealtCard(Value value) {
+		
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }
