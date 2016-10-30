@@ -8,8 +8,6 @@ public class Dealer extends Player {
   private INewGameStrategy m_newGameRule;
   private IHitStrategy m_hitRule;
   private IWinnerStrategy m_winnerRule;
-  
- // private ArrayList<IObserver> m_subscribers;
 
   public Dealer(RulesFactory a_rulesFactory) {
   
@@ -21,15 +19,8 @@ public class Dealer extends Player {
       c.Show(true);
       System.out.println("" + c.GetValue() + " of " + c.GetColor());
     }    */
- //  m_subscribers = new ArrayList<IObserver>();
     
   }
-  
- // public void addSubscriber(IObserver a_sub){
-	//  m_subscribers.add(a_sub);
-	  
-  //}
-  
   
   public boolean NewGame(Player a_player) {
     if (m_deck == null || IsGameOver()) {
@@ -47,7 +38,6 @@ public class Dealer extends Player {
       Card c;
       c = m_deck.GetCard();
       c.Show(true);
-      //observer
       a_player.DealCard(c);
       
       return true;

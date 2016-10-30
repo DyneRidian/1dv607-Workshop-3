@@ -39,15 +39,17 @@ public class Game {
     return m_dealer.NewGame(m_player);
   }
   
-  private void helpSendEvent(Player player){
+  //observer
+  private void hasDealtCard(Player player){
 	  
 	  Card card = null;
 		  
+	  //iterates till the last one
 		  Iterator<Card> hand = player.GetHand().iterator();
 			 while(hand.hasNext()) {
 				card = hand.next();
 			 }
-		  
+		  //sends it
 			 m_subscribers.get(0).dealtCard(card.GetValue());
 
   }
@@ -55,7 +57,7 @@ public class Game {
   public boolean Hit()
   {
 	  if(m_dealer.Hit(m_player)){
-		 helpSendEvent(m_player);
+		 hasDealtCard(m_player);
 		  return true;
 	  }
 	  
@@ -65,7 +67,7 @@ public class Game {
   public boolean Stand()
   {  
 	  if(m_dealer.Stand()){
-			 helpSendEvent(m_dealer);
+			 hasDealtCard(m_dealer);
 			  return true;
 		  }
 		  
