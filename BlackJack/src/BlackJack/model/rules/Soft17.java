@@ -11,23 +11,23 @@ class Soft17 implements IHitStrategy {
 	public boolean DoHit(Player a_dealer) {
 		if (a_dealer.GetHand() != null) {
 
-			for (Card c : a_dealer.GetHand()){
+			for (Card c : a_dealer.GetHand()) {
 				if (c.GetValue() == Card.Value.Ace && count <= 1) {
-					
+
 					count++;
 					System.out.println("hello");
-					
+
 					return true;
 				}
-				
-				else if(c.GetValue().ordinal() <= 4 && count == 1){
-					
+
+				else if (c.GetValue().ordinal() <= 4 && count == 1) {
+
 					return a_dealer.CalcScore() <= 21;
-					
+
 				}
-				
+
 				count++;
-				
+
 			}
 
 		}
