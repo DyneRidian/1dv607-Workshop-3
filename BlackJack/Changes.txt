@@ -2,3 +2,6 @@
 Changes made after the peer review
 -----------------------------------
 
+1. forgot to traverse the list in the observer pattern so added that.
+2. Removed unused dependency of deck from the rules classes.
+3.
