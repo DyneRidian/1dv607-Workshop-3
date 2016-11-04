@@ -50,8 +50,9 @@ public class Game {
 				card = hand.next();
 			 }
 		  //sends it
-			 m_subscribers.get(0).dealtCard(card.GetValue());
-
+			 for(IObserver obs : m_subscribers ){
+			 obs.dealtCard(card.GetValue());
+			 }
   }
   
   public boolean Hit()

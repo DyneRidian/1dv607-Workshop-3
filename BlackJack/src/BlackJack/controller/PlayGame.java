@@ -4,11 +4,13 @@ import BlackJack.model.Card.Value;
 import BlackJack.model.IObserver;
 
 public class PlayGame implements IObserver{
-
-	public boolean Play(BlackJack.model.Game a_game, BlackJack.view.IView a_view) {
-		
+	
+	public PlayGame(BlackJack.model.Game a_game){
 		
 		a_game.addSubscriber(this);
+	}
+
+	public boolean Play(BlackJack.model.Game a_game, BlackJack.view.IView a_view) {
 		
 		a_view.DisplayWelcomeMessage();
 	
@@ -54,6 +56,5 @@ public class PlayGame implements IObserver{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 }
