@@ -70,12 +70,6 @@ public class Dealer extends Player {
 
 			ShowHand();
 
-			for (Card card : this.GetHand()) {
-
-				card.Show(true);
-
-			}
-
 			while (m_hitRule.DoHit(this)) {
 				doDealCard(true, this);
 			}
