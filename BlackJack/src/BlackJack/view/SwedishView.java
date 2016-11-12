@@ -23,6 +23,40 @@ public class SwedishView implements IView
           }
         }*/
         
+        public String choiceValue = "Quit";
+
+    	@Override
+    	public String getValue() {
+    		return choiceValue;
+    	}
+
+    	private void setValue(IView.choice value) {
+
+    		choiceValue = value.toString();
+    	}
+
+    	public void GetInput() {
+    		try {
+    			int c = System.in.read();
+    			while (c == '\r' || c == '\n') {
+    				c = System.in.read();
+    			}
+
+    			if (c == 'p') {
+    				setValue(choice.NewGame);
+    			} else if (c == 'h') {
+    				setValue(choice.Hit);
+    			} else if (c == 's') {
+    				setValue(choice.Stand);
+    			}else if (c == 'q') {
+    				setValue(choice.Quit);
+    			}
+
+    		} catch (java.io.IOException e) {
+    			System.out.println("" + e);
+    		}
+    	}
+        
         public void DisplayCard(BlackJack.model.Card a_card)
         {
             if (a_card.GetColor() == BlackJack.model.Card.Color.Hidden)

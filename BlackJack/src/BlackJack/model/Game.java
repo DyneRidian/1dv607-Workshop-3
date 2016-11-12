@@ -36,7 +36,11 @@ public class Game {
   
   public boolean NewGame()
   {
-    return m_dealer.NewGame(m_player);
+	  if(m_dealer.NewGame(m_player)){
+			 hasDealtCard(m_player);
+			  return true;
+		  }
+    return false;
   }
   
   //observer
@@ -51,7 +55,7 @@ public class Game {
 			 }
 		  //sends it
 			 for(IObserver obs : m_subscribers ){
-			 obs.dealtCard(card.GetValue());
+			 obs.dealtCard(card.GetValue(), this);
 			 }
   }
   

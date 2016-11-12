@@ -2,59 +2,50 @@ package BlackJack.controller;
 
 import BlackJack.model.Card.Value;
 import BlackJack.model.IObserver;
+import BlackJack.view.IView;
 
 public class PlayGame implements IObserver{
 	
-	public PlayGame(BlackJack.model.Game a_game){
+	IView a_view;
+	
+	public PlayGame(BlackJack.model.Game a_game, BlackJack.view.IView a_views){
 		
+		a_view = a_views;
 		a_game.addSubscriber(this);
+		a_view.DisplayWelcomeMessage();
 	}
 
-	public boolean Play(BlackJack.model.Game a_game, BlackJack.view.IView a_view) {
+	public boolean Play(BlackJack.model.Game a_game) {
 		
-		a_view.DisplayWelcomeMessage();
-	
-		a_view.DisplayDealerHand(a_game.GetDealerHand(), a_game.GetDealerScore());
-		a_view.DisplayPlayerHand(a_game.GetPlayerHand(), a_game.GetPlayerScore());
 
 		if (a_game.IsGameOver()) {
 			a_view.DisplayGameOver(a_game.IsDealerWinner());
+			a_view.DisplayWelcomeMessage();
 		}
-
-		int input = GetInput();
-
-		if (input == 'p') {
+		
+		if (a_view.getValue() == "NewGame") {
 			a_game.NewGame();
-		} else if (input == 'h') {
+		} else if (a_view.getValue() == "Hit") {
 			a_game.Hit();
-		} else if (input == 's') {
+		} else if (a_view.getValue() == "Stand") {
 			a_game.Stand();
 		}
 
-		return input != 'q';
-	}
-
-	public int GetInput() {
-		try {
-			int c = System.in.read();
-			while (c == '\r' || c == '\n') {
-				c = System.in.read();
-			}
-			return c;
-		} catch (java.io.IOException e) {
-			System.out.println("" + e);
-			return 0;
-		}
+		return !(a_view.getValue() == "Quit");
 	}
 
 	@Override
-	public void dealtCard(Value value) {
+	public void dealtCard(Value value, BlackJack.model.Game a_game) {
 		
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		a_view.DisplayDealerHand(a_game.GetDealerHand(), a_game.GetDealerScore());
+		a_view.DisplayPlayerHand(a_game.GetPlayerHand(), a_game.GetPlayerScore());
+	
 	}
 }
